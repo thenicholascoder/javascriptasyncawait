@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+//async await
+
+const getUser = (fname) => {
+
+	//backend
+	var user = {
+		id: 6,
+		fname: 'Jane'
+	};
+
+	//auto promise1
+	return new Promise((resolve,reject)=>{
+		//timeout
+		console.log('getting user');
+		setTimeout(()=>{
+			if(fname == user.fname){
+				resolve(user);
+			}else{
+				reject('user not found');
+			}
+		},2000);
+	});
+};
+
+
+	//function for promise
+	const getTweet = id =>{
+		
+		//backend
+		var tweet = {
+			user_id: 6,
+			post: 'Love star wars'
+		};
+
+		//promise
+		return new Promise((resolve,reject)=>{
+			//timeout
+			console.log('getting tweet');
+			setTimeout(()=>{
+				if(tweet.user_id == id){
+					resolve(tweet);
+				}else{
+					reject('no tweets found for this user');
+				}
+			},2000);
+		});
+	};
+
+	//async
+	const printUserTweet = async(fname)=>{
+
+		try{
+			const user = await getUser(fname);
+			const tweet = await getTweet(user.id);
+			console.log(`${user.fname} tweeted ${tweet.post}`);
+		}catch(er){
+			console.log(`Error: ${er}`);
+		};
+	};
+printUserTweet('Jane');
+
+
+</script>
+</body>
+</html>
